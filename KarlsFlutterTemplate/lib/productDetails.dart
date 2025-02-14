@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kft/webApiClient.dart';
+import 'webApiClient.dart';
 
 class ProductDetails extends StatelessWidget {
   final Product product;
@@ -22,16 +22,19 @@ class ProductDetails extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(product.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text(product.name,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             Text(product.description, style: const TextStyle(fontSize: 15)),
-            Text("€ ${product.price.toStringAsFixed(2)}", style: const TextStyle(fontSize: 20, color: Colors.green)),
+            Text("€ ${product.price.toStringAsFixed(2)}",
+                style: const TextStyle(fontSize: 20, color: Colors.green)),
             const SizedBox(height: 20),
             Align(
               alignment: Alignment.centerRight,
               child: FloatingActionButton.extended(
-              onPressed: () => deleteProduct(product),
-              label: const Text("Delete Product"),
+                onPressed: () => deleteProduct(product),
+                label: const Text("Delete Product"),
               ),
             ),
           ],

@@ -45,6 +45,7 @@ class ProductListScreenState extends State<ProductListScreen> {
     });
   }
 
+
   /// Validates if all fields have data to enable the button
   void validateInput() {
     setState(() {
@@ -60,7 +61,8 @@ class ProductListScreenState extends State<ProductListScreen> {
     double price = double.tryParse(priceController.text) ?? 0.0;
     String description = descriptionController.text;
 
-    var product = Product(id: "null", name: name, description: description, price: price);
+    var product =
+        Product(id: "null", name: name, description: description, price: price);
     await postProductAsync(product);
     loadProducts();
 
@@ -109,9 +111,11 @@ class ProductListScreenState extends State<ProductListScreen> {
                           const Text("Price (€)"),
                           TextField(
                             controller: priceController,
-                            keyboardType: TextInputType.numberWithOptions(decimal: true),
+                            keyboardType:
+                                TextInputType.numberWithOptions(decimal: true),
                             inputFormatters: [
-                              FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}$')),
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'^\d*\.?\d{0,2}$')),
                             ],
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
@@ -134,8 +138,8 @@ class ProductListScreenState extends State<ProductListScreen> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                // Add Product Button                
-               Align(
+                // Add Product Button
+                Align(
                   alignment: Alignment.centerRight,
                   child: Visibility(
                     visible: !isButtonDisabled, // Hides when true
@@ -152,26 +156,22 @@ class ProductListScreenState extends State<ProductListScreen> {
           // Product List without Padding
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text("Products", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            child: Text("Products",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ),
           Expanded(
             child: FutureBuilder<List<Product>>(
               future: futureProducts,
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) 
-                {
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
-                } 
-                else if (snapshot.hasError) 
-                {
-                  return Center(child: Text("Error: ${snapshot.error} - Is the server running?"));
-                } 
-                else if (!snapshot.hasData || snapshot.data!.isEmpty) 
-                {
+                } else if (snapshot.hasError) {
+                  return Center(
+                      child: Text(
+                          "Error: ${snapshot.error} - Is the server running?"));
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return const Center(child: Text("No products available"));
-                }
-                 else
-                {
+                } else {
                   return ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
@@ -179,7 +179,8 @@ class ProductListScreenState extends State<ProductListScreen> {
                       return Card(
                         child: ListTile(
                           title: Text(product.name),
-                          subtitle: Text("€ ${product.price.toStringAsFixed(2)}"),
+                          subtitle:
+                              Text("€ ${product.price.toStringAsFixed(2)}"),
                           trailing: const Icon(Icons.arrow_forward),
                           onTap: () {
                             Navigator.push(
@@ -187,7 +188,8 @@ class ProductListScreenState extends State<ProductListScreen> {
                               MaterialPageRoute(
                                 builder: (context) => ProductDetails(
                                   product: product,
-                                  onDelete: loadProducts, // Pass function to refresh after delete
+                                  onDelete:
+                                      loadProducts,
                                 ),
                               ),
                             );
