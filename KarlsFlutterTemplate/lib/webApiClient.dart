@@ -60,8 +60,8 @@ Future<List<Product>> getAllProductsAsync() async {
 }
 
 Future<void> deleteProductAsync(Product product) async {
-  String baseUrl = await getServerUrl();; 
-  final String url = "/api/$baseUrl/Products/${product.id}";
+  String baseUrl = await getServerUrl();
+  final String url = "$baseUrl/api/Products/${product.id}";
 
   try {
     final response = await http.delete(Uri.parse(url), headers: {
@@ -81,7 +81,7 @@ Future<void> deleteProductAsync(Product product) async {
 
 Future<Product> getProductAsync(Product product) async {  
   String baseUrl = await getServerUrl();
-  final String url = "/api/$baseUrl/Products/${product.id}";
+  final String url = "$baseUrl/api/Products/${product.id}";
 
   try {
     final response = await http.get(Uri.parse(url), headers: {
@@ -102,7 +102,7 @@ Future<Product> getProductAsync(Product product) async {
 
 Future<void> postProductAsync(Product product) async {
   String baseUrl = await getServerUrl();
-  final String url = "/api/$baseUrl/Products";
+  final String url = "$baseUrl/api/Products";
 
   try {
     final response = await http.post(

@@ -24,7 +24,6 @@ class ProductListScreenState extends State<ProductListScreen> {
     super.initState();
     loadProducts();
 
-    // Add listeners to enable/disable the button when inputs change
     nameController.addListener(validateInput);
     priceController.addListener(validateInput);
     descriptionController.addListener(validateInput);
@@ -38,7 +37,6 @@ class ProductListScreenState extends State<ProductListScreen> {
     super.dispose();
   }
 
-  /// Reloads products
   void loadProducts() {
     setState(() {
       futureProducts = getAllProductsAsync();
@@ -46,7 +44,7 @@ class ProductListScreenState extends State<ProductListScreen> {
   }
 
 
-  /// Validates if all fields have data to enable the button
+
   void validateInput() {
     setState(() {
       isButtonDisabled = nameController.text.isEmpty ||
@@ -55,7 +53,6 @@ class ProductListScreenState extends State<ProductListScreen> {
     });
   }
 
-  /// Adds a product and updates the UI
   Future<void> addProduct() async {
     String name = nameController.text;
     double price = double.tryParse(priceController.text) ?? 0.0;
@@ -66,10 +63,11 @@ class ProductListScreenState extends State<ProductListScreen> {
     await postProductAsync(product);
     loadProducts();
 
-    // Clear the fields after adding a product
     nameController.clear();
     priceController.clear();
     descriptionController.clear();
+    
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   @override
@@ -79,13 +77,11 @@ class ProductListScreenState extends State<ProductListScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Add Padding to all input elements
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Name and Price in a Row
                 Row(
                   children: [
                     Expanded(
@@ -128,7 +124,6 @@ class ProductListScreenState extends State<ProductListScreen> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                // Description Field
                 const Text("Description"),
                 TextField(
                   controller: descriptionController,
@@ -138,11 +133,10 @@ class ProductListScreenState extends State<ProductListScreen> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                // Add Product Button
                 Align(
                   alignment: Alignment.centerRight,
                   child: Visibility(
-                    visible: !isButtonDisabled, // Hides when true
+                    visible: !isButtonDisabled,
                     child: FloatingActionButton.extended(
                       onPressed: addProduct,
                       label: const Text("+ Add Product"),
@@ -153,7 +147,6 @@ class ProductListScreenState extends State<ProductListScreen> {
               ],
             ),
           ),
-          // Product List without Padding
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Text("Products",
@@ -180,7 +173,9 @@ class ProductListScreenState extends State<ProductListScreen> {
                         child: ListTile(
                           title: Text(product.name),
                           subtitle:
-                              Text("€ ${product.price.toStringAsFixed(2)}"),
+                              Text(
+                                "€ ${product.price.toStringAsFixed(2)}",
+                                style: const TextStyle(color: Colors.green)),
                           trailing: const Icon(Icons.arrow_forward),
                           onTap: () {
                             Navigator.push(

@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <application
-        android:label="uni"
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application    
+        android:label="Karls Flutter Template"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:usesCleartextTraffic="true"
+        android:icon="@mipmap/ic_launcher">        
         <activity
             android:name=".MainActivity"
             android:exported="true"
