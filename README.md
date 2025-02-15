@@ -1,5 +1,5 @@
 
-## Karls Flutter Template - README
+## Karls Flutter Template
 
 #### About me
 
