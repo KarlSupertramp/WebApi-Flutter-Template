@@ -43,8 +43,6 @@ class ProductListScreenState extends State<ProductListScreen> {
     });
   }
 
-
-
   void validateInput() {
     setState(() {
       isButtonDisabled = nameController.text.isEmpty ||
@@ -66,14 +64,17 @@ class ProductListScreenState extends State<ProductListScreen> {
     nameController.clear();
     priceController.clear();
     descriptionController.clear();
-    
+
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Products")),
+      appBar: AppBar(
+        title: const Text("Products"),
+        notificationPredicate: (notification) => false,
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -135,13 +136,9 @@ class ProductListScreenState extends State<ProductListScreen> {
                 const SizedBox(height: 10),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: Visibility(
-                    visible: !isButtonDisabled,
-                    child: FloatingActionButton.extended(
-                      onPressed: addProduct,
-                      label: const Text("+ Add Product"),
-                      backgroundColor: Colors.blue,
-                    ),
+                  child: ElevatedButton(
+                    onPressed: isButtonDisabled ? null : addProduct,
+                    child: const Text("+Add"),
                   ),
                 )
               ],
@@ -172,10 +169,9 @@ class ProductListScreenState extends State<ProductListScreen> {
                       return Card(
                         child: ListTile(
                           title: Text(product.name),
-                          subtitle:
-                              Text(
-                                "€ ${product.price.toStringAsFixed(2)}",
-                                style: const TextStyle(color: Colors.green)),
+                          subtitle: Text(
+                              "€ ${product.price.toStringAsFixed(2)}",
+                              style: const TextStyle(color: Colors.green)),
                           trailing: const Icon(Icons.arrow_forward),
                           onTap: () {
                             Navigator.push(
@@ -183,8 +179,7 @@ class ProductListScreenState extends State<ProductListScreen> {
                               MaterialPageRoute(
                                 builder: (context) => ProductDetails(
                                   product: product,
-                                  onDelete:
-                                      loadProducts,
+                                  onDelete: loadProducts,
                                 ),
                               ),
                             );

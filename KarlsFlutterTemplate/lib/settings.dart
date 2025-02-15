@@ -10,7 +10,7 @@ class Settings extends StatefulWidget {
 
 class SettingsState extends State<Settings> {
   final TextEditingController controller = TextEditingController();
-  static String serverUrl = ""; // Global variable (not persistent)
+  static String serverUrl = "";
 
   @override
   void initState() {
@@ -18,7 +18,6 @@ class SettingsState extends State<Settings> {
     loadServerUrl();
   }
 
-  // Load the saved server URL from SharedPreferences
   Future<void> loadServerUrl() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -27,7 +26,6 @@ class SettingsState extends State<Settings> {
     });
   }
 
-  // Save the server URL
   Future<void> saveServerUrl() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -53,15 +51,19 @@ class SettingsState extends State<Settings> {
                 hintText: 'Enter URL...',
               ),
               onChanged: (value) {
-                // Update global variable on text change
                 serverUrl = value;
               },
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: saveServerUrl,
-              child: const Text("Save"),
-            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Visibility(     
+                child:  ElevatedButton(
+                  onPressed: saveServerUrl,
+                  child: const Text("Save"),
+                ),
+              ),
+            )
           ],
         ),
       ),
