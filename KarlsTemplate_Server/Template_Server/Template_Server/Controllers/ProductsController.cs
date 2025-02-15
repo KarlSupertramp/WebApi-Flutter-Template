@@ -6,21 +6,31 @@ namespace RestServer.Controllers
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
+        // Brought to you by ChatGPT ;)
         private static List<Product> Products = new()
         {
-            new Product { Name = "Laptop", Price = 999.99, Description = "High-performance laptop with the latest processor and long battery life." },
-            new Product { Name = "Smartphone", Price = 499.99, Description = "Feature-packed smartphone with an advanced camera and a stunning display." },
-            new Product { Name = "Tablet", Price = 299.99, Description = "Lightweight tablet perfect for entertainment and productivity on the go." },
-            new Product { Name = "Smartwatch", Price = 199.99, Description = "Stylish smartwatch with fitness tracking and smart notifications." },
-            new Product { Name = "Wireless Headphones", Price = 149.99, Description = "Noise-canceling wireless headphones with immersive sound quality." },
-            new Product { Name = "Mechanical Keyboard", Price = 89.99, Description = "Durable mechanical keyboard with customizable RGB lighting." },
-            new Product { Name = "Gaming Mouse", Price = 59.99, Description = "High-precision gaming mouse with programmable buttons and ergonomic design." },
-            new Product { Name = "Monitor 27-inch", Price = 249.99, Description = "Crystal-clear 27-inch monitor with high refresh rate and vivid colors." },
-            new Product { Name = "External SSD 1TB", Price = 129.99, Description = "Ultra-fast 1TB external SSD for secure data storage and quick transfers." },
-            new Product { Name = "USB-C Docking Station", Price = 79.99, Description = "Versatile USB-C docking station with multiple ports for enhanced connectivity." },
-            new Product { Name = "Wireless Charger", Price = 39.99, Description = "Fast wireless charger compatible with most smartphones and accessories." },
-            new Product { Name = "Portable Bluetooth Speaker", Price = 99.99, Description = "Compact Bluetooth speaker with powerful bass and long battery life." }
+            new Product { Name = "Fishing Rod", Price = 129.99, Description = "Durable carbon fiber fishing rod suitable for both freshwater and saltwater fishing." },
+            new Product { Name = "Spinning Reel", Price = 89.99, Description = "High-performance spinning reel with smooth drag and anti-reverse technology." },
+            new Product { Name = "Fishing Line", Price = 19.99, Description = "Strong and abrasion-resistant fishing line for reliable catches." },
+            new Product { Name = "Tackle Box", Price = 34.99, Description = "Spacious tackle box with multiple compartments for organizing fishing gear." },
+            new Product { Name = "Fishing Hooks Set", Price = 14.99, Description = "Variety pack of high-quality fishing hooks for different fish species." },
+            new Product { Name = "Lure Kit", Price = 39.99, Description = "Assorted lure kit with crankbaits, soft plastics, and jigs for versatile fishing." },
+            new Product { Name = "Fishing Net", Price = 24.99, Description = "Lightweight and foldable fishing net for easy catch and release." },
+            new Product { Name = "Fish Finder", Price = 199.99, Description = "Advanced fish finder with sonar technology for locating fish underwater." },
+            new Product { Name = "Bait Bucket", Price = 22.99, Description = "Insulated bait bucket to keep live bait fresh for longer periods." },
+            new Product { Name = "Fishing Vest", Price = 49.99, Description = "Multi-pocket fishing vest for convenient storage of tools and accessories." },
+            new Product { Name = "Fishing Waders", Price = 89.99, Description = "Waterproof fishing waders for comfortable fishing in deep waters." },
+            new Product { Name = "Rod Holder", Price = 19.99, Description = "Adjustable rod holder for hands-free fishing on boats or shorelines." },
+            new Product { Name = "Fishing Gloves", Price = 14.99, Description = "Non-slip fishing gloves with UV protection and reinforced grip." },
+            new Product { Name = "Baitcasting Reel", Price = 129.99, Description = "Precision-engineered baitcasting reel for accurate casting and control." },
+            new Product { Name = "Fishing Pliers", Price = 16.99, Description = "Corrosion-resistant fishing pliers for cutting lines and removing hooks." },
+            new Product { Name = "Tackle Backpack", Price = 59.99, Description = "Heavy-duty tackle backpack with multiple storage compartments." },
+            new Product { Name = "Fishing Chair", Price = 44.99, Description = "Lightweight and foldable fishing chair for comfortable angling." },
+            new Product { Name = "Fish Scale & Ruler", Price = 24.99, Description = "Digital fish scale with a built-in ruler for measuring your catch." },
+            new Product { Name = "Fishing Headlamp", Price = 29.99, Description = "Bright LED fishing headlamp for nighttime fishing adventures." },
+            new Product { Name = "Live Bait Aerator", Price = 34.99, Description = "Battery-powered aerator to keep live bait oxygenated." }
         };
+
 
         [HttpGet]
         public IActionResult GetProducts()

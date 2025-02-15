@@ -14,7 +14,7 @@ app.UseCors(policy =>
 
 var localIP = GetLocalIPAddress();
 app.Urls.Add($"http://{localIP}:5000");
-//app.Urls.Add($"https://{localIP}:5001");
+app.Urls.Add($"https://{localIP}:5001");
 
 if (app.Environment.IsDevelopment())
 {
@@ -22,7 +22,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseAuthorization();
+app.UseAuthorization();
 app.MapControllers();
 app.Run();
 
