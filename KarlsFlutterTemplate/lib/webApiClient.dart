@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Product {
   final String id;
@@ -22,13 +23,26 @@ class Product {
       price: (json['price'] as num).toDouble(),
     );
   }
+
+  String toJson()
+  {
+      return json.encode({
+        "id": id,
+        "name": name,
+        "description": description,
+        "price": price,
+      }).toString();
+  }
 }
 
-// Replace server IP
-final String baseUrl = "https://192.168.178.43:5001/api";
+Future<String> getServerUrl() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getString('server_url') ?? "";  
+}
 
 Future<List<Product>> getAllProductsAsync() async {
-  final String header = "$baseUrl/Products";
+  String baseUrl = await getServerUrl();
+  final String header = "$baseUrl/api/Products";
 
   try {
     final response = await http.get(Uri.parse(header));
@@ -46,7 +60,8 @@ Future<List<Product>> getAllProductsAsync() async {
 }
 
 Future<void> deleteProductAsync(Product product) async {
-  final String url = "$baseUrl/Products/${product.id}";
+  String baseUrl = await getServerUrl();; 
+  final String url = "/api/$baseUrl/Products/${product.id}";
 
   try {
     final response = await http.delete(Uri.parse(url), headers: {
@@ -64,8 +79,9 @@ Future<void> deleteProductAsync(Product product) async {
   }
 }
 
-Future<Product> getProductAsync(Product product) async {
-  final String url = "$baseUrl/Products/${product.id}";
+Future<Product> getProductAsync(Product product) async {  
+  String baseUrl = await getServerUrl();
+  final String url = "/api/$baseUrl/Products/${product.id}";
 
   try {
     final response = await http.get(Uri.parse(url), headers: {
@@ -85,7 +101,8 @@ Future<Product> getProductAsync(Product product) async {
 }
 
 Future<void> postProductAsync(Product product) async {
-  final String url = "$baseUrl/Products";
+  String baseUrl = await getServerUrl();
+  final String url = "/api/$baseUrl/Products";
 
   try {
     final response = await http.post(
@@ -93,12 +110,7 @@ Future<void> postProductAsync(Product product) async {
       headers: {
         "Content-Type": "application/json",
       },
-      body: json.encode({
-        "id": product.id,
-        "name": product.name,
-        "description": product.description,
-        "price": product.price,
-      }),
+      body: product.toJson(),
     );
 
     if (response.statusCode == 201 || response.statusCode == 200) {
