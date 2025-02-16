@@ -10,7 +10,7 @@ class Settings extends StatefulWidget {
 
 class SettingsState extends State<Settings> {
   final TextEditingController controller = TextEditingController();
-  static String serverUrl = "";
+  static String serverUrl = "";  
 
   @override
   void initState() {
@@ -37,16 +37,16 @@ class SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Settings")),
+      appBar: AppBar(title: Text("Settings")),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding:  EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Server URL"),
+            Text("Server URL"),
             TextField(
               controller: controller,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Enter URL...',
               ),
@@ -54,13 +54,13 @@ class SettingsState extends State<Settings> {
                 serverUrl = value;
               },
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Align(
               alignment: Alignment.centerRight,
               child: Visibility(     
                 child:  ElevatedButton(
                   onPressed: saveServerUrl,
-                  child: const Text("Save"),
+                  child:  Text("Save"),
                 ),
               ),
             )

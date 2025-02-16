@@ -51,7 +51,7 @@ namespace RestServer.Controllers
         {
             product.Id = Guid.NewGuid().ToString();
             Products.Add(product);
-            Console.WriteLine(product.Name + " was added");
+            Console.Write($"Product added: {product.Name} ({product.Id})");
             return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
         }
 
@@ -62,7 +62,10 @@ namespace RestServer.Controllers
             if (product == null) return NotFound();
 
             product.Name = updatedProduct.Name;
+            product.Description = updatedProduct.Description;
             product.Price = updatedProduct.Price;
+            Console.Write($"Product updated: {product.Name} ({product.Id})");
+
             return NoContent();
         }
 
@@ -71,10 +74,9 @@ namespace RestServer.Controllers
         {
             var product = Products.FirstOrDefault(p => p.Id == id);
             if (product == null) return NotFound();
-
             Products.Remove(product);
-            Console.WriteLine(product.Name + " was deleted");
 
+            Console.Write($"Product deleted: {product.Name} ({product.Id})");
             return NoContent();
         }
     }

@@ -64,9 +64,7 @@ Future<void> deleteProductAsync(Product product) async {
   final String url = "$baseUrl/api/Products/${product.id}";
 
   try {
-    final response = await http.delete(Uri.parse(url), headers: {
-      "Connection": "close" // Helps prevent redirects
-    });
+    final response = await http.delete(Uri.parse(url));
 
     if (response.statusCode == 204 || response.statusCode == 200) {
       // -> YAY!
@@ -79,28 +77,29 @@ Future<void> deleteProductAsync(Product product) async {
   }
 }
 
-Future<Product> getProductAsync(Product product) async {  
+Future<Product> getProductAsync(String id) async {  
   String baseUrl = await getServerUrl();
-  final String url = "$baseUrl/api/Products/${product.id}";
+  final String url = "$baseUrl/api/Products/$id";
 
   try {
-    final response = await http.get(Uri.parse(url), headers: {
-      "Connection": "close" // Helps prevent redirects
-    });
+    final response = await http.get(Uri.parse(url));
 
-    if (response.statusCode == 204 || response.statusCode == 200) {
-      dynamic jsonResult = json.decode(response.body);
-      return jsonResult.map((json) => Product.fromJson(json)).toList();
+    if (response.statusCode == 200 || response.statusCode == 204) {
+      if (response.body.isNotEmpty) {
+        return Product.fromJson(json.decode(response.body));
+      } else {
+        throw Exception("Product not found or no content available.");
+      }
     } else {
       throw Exception(
-          "Failed to delete product, Status Code: ${response.statusCode}");
+          "Failed to fetch product, Status Code: ${response.statusCode}");
     }
   } catch (error) {
-    throw Exception("Error deleting product: $error");
+    throw Exception("Error fetching product: $error");
   }
 }
 
-Future<void> postProductAsync(Product product) async {
+Future<void> addProductAsync(Product product) async {
   String baseUrl = await getServerUrl();
   final String url = "$baseUrl/api/Products";
 
@@ -123,3 +122,31 @@ Future<void> postProductAsync(Product product) async {
     throw Exception("Error adding product: $error");
   }
 }
+
+Future<void> updateProductAsync(Product product) async {
+  String baseUrl = await getServerUrl();
+  final String url = "$baseUrl/api/Products/${product.id}";
+
+  try {
+    final response = await http.put(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: product.toJson(),
+    );
+
+    if (response.statusCode == 204) {
+      // Successfully updated product (No Content response)
+    } else if (response.statusCode == 404) {
+      throw Exception("Product not found");
+    } else {
+      throw Exception(
+          "Failed to update product, Status Code: ${response.statusCode}");
+    }
+  } catch (error) {
+    throw Exception("Error updating product: $error");
+  }
+}
+
+
