@@ -10,12 +10,23 @@ class Settings extends StatefulWidget {
 
 class SettingsState extends State<Settings> {
   final TextEditingController controller = TextEditingController();
-  static String serverUrl = "";  
+  static String serverUrl = ""; 
+  bool buttonEnabled = false;
 
   @override
   void initState() {
     super.initState();
     loadServerUrl();
+    controller.addListener(updateButtonState);
+
+    updateButtonState();
+  }
+
+  @override
+  void dispose() {
+    controller.removeListener(updateButtonState);
+    controller.dispose();
+    super.dispose();
   }
 
   Future<void> loadServerUrl() async {
@@ -23,6 +34,13 @@ class SettingsState extends State<Settings> {
     setState(() {
       serverUrl = prefs.getString('server_url') ?? "";
       controller.text = serverUrl;
+    });
+  }
+
+  void updateButtonState()
+  {
+    setState(() {      
+      buttonEnabled = controller.text != "";
     });
   }
 
@@ -59,7 +77,7 @@ class SettingsState extends State<Settings> {
               alignment: Alignment.centerRight,
               child: Visibility(     
                 child:  ElevatedButton(
-                  onPressed: saveServerUrl,
+                  onPressed: buttonEnabled ? saveServerUrl : null,
                   child:  Text("Save"),
                 ),
               ),

@@ -55,7 +55,7 @@ class ProductEditorState extends State<ProductEditor> {
         id: "null", // Set to null instead of empty string
         name: nameController.text,
         description: descriptionController.text,
-        price: double.tryParse(priceController.text) ?? 0.0,
+        price: (double.tryParse(priceController.text)! * 100).round(),
       );
 
       await addProductAsync(newProduct);
@@ -99,8 +99,7 @@ class ProductEditorState extends State<ProductEditor> {
               ),
               TextFormField(
                 controller: descriptionController,
-                decoration: InputDecoration(labelText: 'Description'),
-                maxLines: 3,
+                decoration: InputDecoration(labelText: 'Description')
               ),
               SizedBox(height: 10),
               Align(

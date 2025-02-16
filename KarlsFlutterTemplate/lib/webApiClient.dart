@@ -6,7 +6,7 @@ class Product {
   final String id;
   final String name;
   final String description;
-  final double price;
+  final int price;
 
   Product(
       {required this.id,
@@ -20,7 +20,7 @@ class Product {
       id: json['id'],
       name: json['name'],
       description: json['description'],
-      price: (json['price'] as num).toDouble(),
+      price: (json['price']),
     );
   }
 

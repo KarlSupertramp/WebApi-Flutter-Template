@@ -40,7 +40,7 @@ class ProductListScreenState extends State<ProductListScreen> {
         context,
         MaterialPageRoute(
             builder: (context) => ProductDetails(
-                productId: product.id, onDelete: loadProducts)));
+                productId: product.id, onDelete: loadProducts, onUpdate: loadProducts)));
   }
 
   @override
@@ -96,7 +96,7 @@ class ProductListScreenState extends State<ProductListScreen> {
                         child: ListTile(
                           title: Text(product.name),
                           subtitle: Text(
-                              "€ ${product.price.toStringAsFixed(2)}",
+                              "€ ${(product.price/100).toStringAsFixed(2)}",
                               style: TextStyle(color: Colors.green)),
                           trailing: Icon(Icons.arrow_forward),
                           onTap: () {
