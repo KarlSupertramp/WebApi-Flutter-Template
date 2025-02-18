@@ -9,7 +9,7 @@ Feel free to clone and share. Feedback is always welcome!
 
 ### Repositiory
 
-My goal with this project was to setup a simple application to get to with Dart and Flutter. The application contains a few pages that let the user manage a list of products that and handled on a web server. I implemented some basic UI elements and a client that contains all the web requests.<br>
+My goal with this project was to setup a simple application to get to know Dart and Flutter. The application contains a few pages that let the user manage a list of products that are handled by a web server. I implemented some basic UI elements and a client that contains all the web requests.<br>
 
 To simplify things I did not use a databank. Data is stored in a static List<> and will not persist.
 
