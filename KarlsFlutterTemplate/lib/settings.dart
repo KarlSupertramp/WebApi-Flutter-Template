@@ -50,6 +50,8 @@ class SettingsState extends State<Settings> {
       serverUrl = controller.text;
     });
     await prefs.setString('server_url', serverUrl);
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('URL saved')));
   }
 
   @override
