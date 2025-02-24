@@ -92,18 +92,24 @@ class ProductListScreenState extends State<ProductListScreen> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       final product = snapshot.data![index];
-                      return Card(
-                        child: ListTile(
+                      return Dismissible(
+                        key: Key(product.name), 
+                        onDismissed: (direction) 
+                        {
+                          deleteProductAsync(product);
+                        },
+                        child: Card(child: ListTile(
                           title: Text(product.name),
                           subtitle: Text(
                               "€ ${(product.price/100).toStringAsFixed(2)}",
                               style: TextStyle(color: Colors.green)),
-                          trailing: Icon(Icons.arrow_forward),
-                          onTap: () {
-                            goToProductDetails(product);
-                          },
+                              trailing: Icon(Icons.arrow_forward),
+                              onTap: () {
+                                goToProductDetails(product);
+                              },
+                          )
                         ),
-                      );
+                      );                     
                     },
                   );
                 }
