@@ -26,8 +26,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
 
   FlutterWindow window(project);
   Win32Window::Point origin(10, 10);
-  Win32Window::Size size(1280, 720);
-  if (!window.Create(L"Karls Flutter Template", origin, size)) {
+  Win32Window::Size size(480 , 920);
+  if (!window.Create(L"WebAPI Flutter Template", origin, size)) {
     return EXIT_FAILURE;
   }
   window.SetQuitOnClose(true);

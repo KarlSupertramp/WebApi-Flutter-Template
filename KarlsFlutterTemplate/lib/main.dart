@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Karls Flutter Template'),
+      home: const MyHomePage(title: 'WebAPI Flutter Template'),
     );
   }
 }
