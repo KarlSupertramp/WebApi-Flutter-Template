@@ -1,0 +1,122 @@
+[
+  {
+    "id": "1",
+    "Name": "Fishing Rod",
+    "Price": 12999,
+    "Description": "Durable carbon fiber fishing rod suitable for both freshwater and saltwater fishing."
+  },
+  {
+    "id": "2",
+    "Name": "Spinning Reel",
+    "Price": 8999,
+    "Description": "High-performance spinning reel with smooth drag and anti-reverse technology."
+  },
+  {
+    "id": "3",
+    "Name": "Fishing Line",
+    "Price": 1999,
+    "Description": "Strong and abrasion-resistant fishing line for reliable catches."
+  },
+  {
+    "id": "4",
+    "Name": "Tackle Box",
+    "Price": 3499,
+    "Description": "Spacious tackle box with multiple compartments for organizing fishing gear."
+  },
+  {
+    "id": "5",
+    "Name": "Fishing Hooks Set",
+    "Price": 1499,
+    "Description": "Variety pack of high-quality fishing hooks for different fish species."
+  },
+  {
+    "id": "6",
+    "Name": "Lure Kit",
+    "Price": 3999,
+    "Description": "Assorted lure kit with crankbaits, soft plastics, and jigs for versatile fishing."
+  },
+  {
+    "id": "7",
+    "Name": "Fishing Net",
+    "Price": 2499,
+    "Description": "Lightweight and foldable fishing net for easy catch and release."
+  },
+  {
+    "id": "8",
+    "Name": "Fish Finder",
+    "Price": 19999,
+    "Description": "Advanced fish finder with sonar technology for locating fish underwater."
+  },
+  {
+    "id": "9",
+    "Name": "Bait Bucket",
+    "Price": 2299,
+    "Description": "Insulated bait bucket to keep live bait fresh for longer periods."
+  },
+  {
+    "id": "10",
+    "Name": "Fishing Vest",
+    "Price": 4999,
+    "Description": "Multi-pocket fishing vest for convenient storage of tools and accessories."
+  },
+  {
+    "id": "11",
+    "Name": "Fishing Waders",
+    "Price": 8999,
+    "Description": "Waterproof fishing waders for comfortable fishing in deep waters."
+  },
+  {
+    "id": "12",
+    "Name": "Rod Holder",
+    "Price": 1999,
+    "Description": "Adjustable rod holder for hands-free fishing on boats or shorelines."
+  },
+  {
+    "id": "13",
+    "Name": "Fishing Gloves",
+    "Price": 1499,
+    "Description": "Non-slip fishing gloves with UV protection and reinforced grip."
+  },
+  {
+    "id": "14",
+    "Name": "Baitcasting Reel",
+    "Price": 12999,
+    "Description": "Precision-engineered baitcasting reel for accurate casting and control."
+  },
+  {
+    "id": "15",
+    "Name": "Fishing Pliers",
+    "Price": 1699,
+    "Description": "Corrosion-resistant fishing pliers for cutting lines and removing hooks."
+  },
+  {
+    "id": "16",
+    "Name": "Tackle Backpack",
+    "Price": 5999,
+    "Description": "Heavy-duty tackle backpack with multiple storage compartments."
+  },
+  {
+    "id": "17",
+    "Name": "Fishing Chair",
+    "Price": 4499,
+    "Description": "Lightweight and foldable fishing chair for comfortable angling."
+  },
+  {
+    "id": "18",
+    "Name": "Fish Scale & Ruler",
+    "Price": 2499,
+    "Description": "Digital fish scale with a built-in ruler for measuring your catch."
+  },
+  {
+    "id": "19",
+    "Name": "Fishing Headlamp",
+    "Price": 2999,
+    "Description": "Bright LED fishing headlamp for nighttime fishing adventures."
+  },
+  {
+    "id": "20",
+    "Name": "Live Bait Aerator",
+    "Price": 3499,
+    "Description": "Battery-powered aerator to keep live bait oxygenated."
+  }
+]

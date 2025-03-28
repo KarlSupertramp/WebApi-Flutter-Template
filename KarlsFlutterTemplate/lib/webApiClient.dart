@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class Product {
   final String id;
@@ -8,145 +8,61 @@ class Product {
   final String description;
   final int price;
 
-  Product(
-      {required this.id,
-      required this.name,
-      required this.description,
-      required this.price});
+  Product({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.price,
+  });
 
-  // Factory constructor to create a Product from JSON
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'],
-      name: json['name'],
-      description: json['description'],
-      price: (json['price']),
+      id: json['id'] ?? UniqueKey().toString(),
+      name: json['Name'] ?? '',
+      description: json['Description'] ?? '',
+      price: json['Price'] ?? 0,
     );
   }
 
-  String toJson()
-  {
-      return json.encode({
+  Map<String, dynamic> toMap() => {
         "id": id,
         "name": name,
         "description": description,
         "price": price,
-      }).toString();
-  }
+      };
+
+  String toJson() => json.encode(toMap());
 }
 
-Future<String> getServerUrl() async {
-  final prefs = await SharedPreferences.getInstance();
-  return prefs.getString('server_url') ?? "";  
-}
+// In-memory data list
+List<Product> _products = [];
 
 Future<List<Product>> getAllProductsAsync() async {
-  String baseUrl = await getServerUrl();
-  final String header = "$baseUrl/api/Products";
+  if (_products.isNotEmpty) return _products;
 
-  try {
-    final response = await http.get(Uri.parse(header));
+  final jsonString = await rootBundle.loadString('assets/data.json');
+  final List<dynamic> jsonList = json.decode(jsonString);
 
-    if (response.statusCode == 200) {
-      List<dynamic> jsonList = json.decode(response.body);
-      return jsonList.map((json) => Product.fromJson(json)).toList();
-    } else {
-      throw Exception(
-          "Failed to load products, Status Code: ${response.statusCode}");
-    }
-  } catch (error) {
-    throw Exception("Error fetching products: $error");
-  }
+  _products = jsonList.map((item) => Product.fromJson(item)).toList();
+  return _products;
+}
+
+Future<Product> getProductAsync(String id) async {
+  await getAllProductsAsync();
+  final product = _products.firstWhere((p) => p.id == id, orElse: () => throw Exception("Product not found"));
+  return product;
 }
 
 Future<void> deleteProductAsync(Product product) async {
-  String baseUrl = await getServerUrl();
-  final String url = "$baseUrl/api/Products/${product.id}";
-
-  try {
-    final response = await http.delete(Uri.parse(url));
-
-    if (response.statusCode == 204 || response.statusCode == 200) {
-      // -> YAY!
-    } else {
-      throw Exception(
-          "Failed to delete product, Status Code: ${response.statusCode}");
-    }
-  } catch (error) {
-    throw Exception("Error deleting product: $error");
-  }
-}
-
-Future<Product> getProductAsync(String id) async {  
-  String baseUrl = await getServerUrl();
-  final String url = "$baseUrl/api/Products/$id";
-
-  try {
-    final response = await http.get(Uri.parse(url));
-
-    if (response.statusCode == 200 || response.statusCode == 204) {
-      if (response.body.isNotEmpty) {
-        return Product.fromJson(json.decode(response.body));
-      } else {
-        throw Exception("Product not found or no content available.");
-      }
-    } else {
-      throw Exception(
-          "Failed to fetch product, Status Code: ${response.statusCode}");
-    }
-  } catch (error) {
-    throw Exception("Error fetching product: $error");
-  }
+  _products.removeWhere((p) => p.id == product.id);
 }
 
 Future<void> addProductAsync(Product product) async {
-  String baseUrl = await getServerUrl();
-  final String url = "$baseUrl/api/Products";
-
-  try {
-    final response = await http.post(
-      Uri.parse(url),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: product.toJson(),
-    );
-
-    if (response.statusCode == 201 || response.statusCode == 200) {
-      // Successfully added product
-    } else {
-      throw Exception(
-          "Failed to add product, Status Code: ${response.statusCode}");
-    }
-  } catch (error) {
-    throw Exception("Error adding product: $error");
-  }
+  _products.add(product);
 }
 
 Future<void> updateProductAsync(Product product) async {
-  String baseUrl = await getServerUrl();
-  final String url = "$baseUrl/api/Products/${product.id}";
-
-  try {
-    final response = await http.put(
-      Uri.parse(url),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: product.toJson(),
-    );
-
-    if (response.statusCode == 204) {
-      // Successfully updated product (No Content response)
-    } else if (response.statusCode == 404) {
-      throw Exception("Product not found");
-    } else {
-      throw Exception(
-          "Failed to update product, Status Code: ${response.statusCode}");
-    }
-  } catch (error) {
-    throw Exception("Error updating product: $error");
-  }
+  final index = _products.indexWhere((p) => p.id == product.id);
+  if (index == -1) throw Exception("Product not found");
+  _products[index] = product;
 }
-
-
