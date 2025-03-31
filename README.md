@@ -1,12 +1,6 @@
 
 ## Karls Flutter Template
 
-#### About me
-
-As a hybrid between UX Designer and Software Developer I'm always on the keen on learning new skills. I like to share my learnings here, so all my effort is not lost in a void.<br>
-
-Feel free to clone and share. Feedback is always welcome!
-
 ### Repositiory
 
 My goal with this project was to setup a simple application to get to know Dart and Flutter. The application contains a few pages that let the user manage a list of products that are handled by a web server. I implemented some basic UI elements and a client that contains all the web requests.<br>
