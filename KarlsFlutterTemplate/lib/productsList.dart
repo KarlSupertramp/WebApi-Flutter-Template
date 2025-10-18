@@ -11,8 +11,8 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class ProductListScreenState extends State<ProductListScreen> {
+  final api = ProductApi();
   late Future<List<Product>> futureProducts;
-
   bool isButtonDisabled = true;
 
   @override
@@ -23,7 +23,7 @@ class ProductListScreenState extends State<ProductListScreen> {
 
   void loadProducts() {
     setState(() {
-      futureProducts = getAllProductsAsync();
+      futureProducts = api.getAllProductsAsync();
     });
   }
 
@@ -108,7 +108,7 @@ class ProductListScreenState extends State<ProductListScreen> {
                             return Dismissible(
                               key: Key(product.name),
                               onDismissed: (direction) {
-                                deleteProductAsync(product);
+                                api.deleteProductAsync(product.id);
                               },
                               child: Card(
                                   child: ListTile(

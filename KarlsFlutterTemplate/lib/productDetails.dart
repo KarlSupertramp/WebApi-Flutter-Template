@@ -14,6 +14,8 @@ class ProductDetails extends StatefulWidget {
 }
 
 class ProductDetailsState extends State<ProductDetails> {
+  final api = ProductApi();
+
   late Future<Product> productFuture;
   late TextEditingController nameController;
   late TextEditingController descriptionController;
@@ -23,7 +25,7 @@ class ProductDetailsState extends State<ProductDetails> {
   @override
   void initState() {
     super.initState();
-    productFuture = getProductAsync(widget.productId);
+    productFuture = api.getProductAsync(widget.productId);
   }
 
   void startEditing(Product product) {
@@ -44,7 +46,7 @@ class ProductDetailsState extends State<ProductDetails> {
       price: (double.tryParse(priceController.text)! * 100).round(),
     );
 
-    await updateProductAsync(updatedProduct).whenComplete(() {
+    await api.updateProductAsync(updatedProduct).whenComplete(() {
       widget.onUpdate();
     });
 
@@ -61,7 +63,7 @@ class ProductDetailsState extends State<ProductDetails> {
   }
 
   Future<void> deleteProduct() async {
-    await deleteProductAsync(await productFuture).whenComplete(() {
+    await api.deleteProductAsync(widget.productId).whenComplete(() {
       widget.onDelete();
     });
 

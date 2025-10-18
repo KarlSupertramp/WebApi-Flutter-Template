@@ -15,6 +15,7 @@ class ProductEditorState extends State<ProductEditor> {
   late TextEditingController priceController;
   late TextEditingController descriptionController;
   bool isButtonEnabled = false;
+  final api = ProductApi();
 
   @override
   void initState() {
@@ -58,7 +59,7 @@ class ProductEditorState extends State<ProductEditor> {
         price: (double.tryParse(priceController.text)! * 100).round(),
       );
 
-      await addProductAsync(newProduct);
+      await api.addProductAsync(newProduct);
       widget.onUpdate(); // Call the update function
 
       ScaffoldMessenger.of(context)
